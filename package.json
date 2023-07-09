@@ -5,15 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "upload": "ts-node upload.ts",
+    "upload:single": "ts-node upload.ts --type=single",
+    "upload:all": "ts-node upload.ts --type=all",
     "local": "ts-node index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1410.0",
+    "chalk": "^4.1.2",
     "dotenv": "^16.3.1",
-    "ts-node": "^10.9.1"
+    "front-matter": "^4.0.2",
+    "glob": "^10.3.3",
+    "mongoose": "^7.3.2",
+    "ts-node": "^10.9.1",
+    "yaml": "^2.3.1"
   },
   "devDependencies": {
     "@types/node": "^20.3.3",

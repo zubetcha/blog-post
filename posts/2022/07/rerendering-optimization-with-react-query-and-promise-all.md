@@ -5,6 +5,7 @@ category: React
 description: 리렌더링 최적화 그거 어떻게 하는건데…
 date: 2022-07-13
 published: true
+slug: rerendering-optimization-with-react-query-and-promise-all
 tags:
   - react
   - optimization
