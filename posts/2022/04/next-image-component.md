@@ -5,6 +5,7 @@ category: Next
 description: 알고 쓰면 더 좋은 Image 컴포넌트
 date: 2022-04-13
 published: true
+slug: next-image-component
 tags: 
   - next
   - optimization

@@ -5,6 +5,7 @@ category: Javascript
 date: 2022-02-18
 description: Promise all과 Promise race는 언제 사용할까? 🤔
 published: true
+slug: javascript-promise-all-promise-race
 tags:
   - javascript
   - promise

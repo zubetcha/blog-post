@@ -5,6 +5,7 @@ category: Javascript
 date: 2022-02-14
 description: 자바스크립트 함수 실행 파헤치기!
 published: true
+slug: javascript-execution-context
 tags: 
   - javascript
   - execution context

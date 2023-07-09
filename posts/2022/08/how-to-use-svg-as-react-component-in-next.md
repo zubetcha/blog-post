@@ -5,6 +5,7 @@ category: Next
 description: 🤔
 date: 2022-08-05
 published: true
+slug: how-to-use-svg-as-react-component-in-next
 tags:
   - next
   - react
