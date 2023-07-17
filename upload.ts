@@ -17,7 +17,7 @@ type FrontMatter = {
   tags: string[];
 }
 
-dotenv.config();
+dotenv.config()
 
 AWS.config.update({
   accessKeyId: process.env.S3_ACCESS_KEY_ID,
@@ -108,7 +108,7 @@ const getPostData = ({ params, file }: Awaited<ReturnType<typeof uploadToS3>>) =
   }
 }
 
-const savePostDate = async (data: ReturnType<typeof getPostData> & { updatedDate?: Date }) => {
+const savePostData = async (data: ReturnType<typeof getPostData> & { updatedDate?: Date }) => {
   const targetPost = await Post.findOne({ slug: data.slug });
 
   if (targetPost) {
@@ -142,7 +142,7 @@ const upload = async () => {
 
   const { params, file } = await uploadToS3(filePath);
   const data = getPostData({ params, file });
-  await savePostDate(data);
+  await savePostData(data);
 
   process.exit(1);
 }
@@ -155,7 +155,7 @@ const uploadAll = async () => {
   for (const filePath of files) {
     const { params, file } = await uploadToS3(filePath);
     const data = getPostData({ params, file });
-    await savePostDate({ ...data, updatedDate: new Date(data.date) });
+    await savePostData({ ...data, updatedDate: new Date() });
   }
 
   process.exit(1);
