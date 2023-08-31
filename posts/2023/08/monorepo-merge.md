@@ -34,11 +34,19 @@ tags:
 <br/>
 
 <p align="center">
-  <img src="https://github.com/zubetcha/dev-book-cheat-sheet/assets/91620721/183fa763-452c-4b3f-8ca9-e58168d85b70" width="60%" />
+  <img src="https://github.com/zubetcha/dev-book-cheat-sheet/assets/91620721/183fa763-452c-4b3f-8ca9-e58168d85b70" width="60%" alt="" />
 </p>
 
 <br/>
 
-에디터에서 확인해보면 커밋 이력들이 남아 이
+에디터에서 확인해보면 내가 커밋한 이력들이 잘 보인다.
+
+<p align="center">
+  <img src="https://github.com/zubetcha/monorepo-ez-script/assets/91620721/476278f6-3c2b-44da-b4a2-730cbecb7810" width="80%" alt="" />
+</p>
+
+
+
+
 
 # 🤷🏻‍♀️
