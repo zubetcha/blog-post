@@ -87,10 +87,46 @@ fab1784 HEAD@{3}: commit: serverless function try-catch 추가
 .
 ```
 
-위치를 옮긴 후 확인해보면 각 레포지토리마다의 커밋 히스토리들이 잘 확인된다. 즉, 물리적으로 멀티레포를 모노레포 안으로 옮기는 건 단순히 멀티레포의 위치를 변경하는 것뿐이며 모노레포에 병합이 되는 건 아닌 것이다.
+<br/>
+
+위치를 옮긴 후 확인해보면 각 레포지토리마다의 커밋 히스토리들이 잘 확인된다. 즉, 물리적으로 멀티레포를 모노레포 안으로 옮기는 건 단순히 멀티레포의 위치를 변경하는 것뿐이며 모노레포에 병합이 되는 건 아닌 것이다. 이 부분은 vscode의 git graph 관련 익스텐션에서도 확인할 수 있다. 각각의 폴더를 각기 다른 git 레포지토리로 인식하고 있다.
+
+<br/>
+
+<img src="https://github.com/zubetcha/blog-post/assets/91620721/a1054816-f5c2-49e5-a85f-d5d55075ad04" />
+<img src="https://github.com/zubetcha/blog-post/assets/91620721/0ed79efd-d923-427d-a2c7-43983c153240" />
+<img src="https://github.com/zubetcha/blog-post/assets/91620721/16d11037-782f-4b1c-a916-3948a2cc36ab" />
 
 <br/>
 
 # git merge
 
-몇 차례 `병합`이라는 단어를 썼는데, git에서 관리되는 히스토리를 합치는 올바른 방법은 `git merge`를 사용하는 것이다. 
+몇 차례 `병합`이라는 단어를 썼는데, git에서 관리되는 히스토리를 합치는 올바른 방법은 `git merge`를 사용하는 것이다. 하지만 멀티레포를 있는 그대로 git merge를 하면 같은 위치에 동일한 이름을 가진 수많은 파일들이 충돌하게 된다.
+
+병합할 레포지토리를 clone한 후 그대로 merge 해보자.
+
+```shell
+// 병합할 레포지토리
+$ git clone https://github.com/zubetcha/blog-post.git
+
+// 모노레포에서 병합할 레포지토리를 remote 레포지토리로 등록
+$ git remote add origin /Users/zuhye/study/monorepo/blog-post
+
+// merge
+$ git fetch origin
+$ git merge origin/main --allow-unrelated-histories
+
+Auto-merging .gitignore
+CONFLICT (add/add): Merge conflict in .gitignore
+Auto-merging .prettierrc
+CONFLICT (add/add): Merge conflict in .prettierrc
+Auto-merging README.md
+CONFLICT (add/add): Merge conflict in README.md
+Auto-merging package.json
+CONFLICT (add/add): Merge conflict in package.json
+Auto-merging tsconfig.json
+CONFLICT (add/add): Merge conflict in tsconfig.json
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+충돌을 피하는 방법은 단순하게도, 
