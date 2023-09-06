@@ -34,7 +34,7 @@ tags:
 <br/>
 
 <p align="center">
-  <img src="https://github.com/zubetcha/dev-book-cheat-sheet/assets/91620721/183fa763-452c-4b3f-8ca9-e58168d85b70" width="60%" alt="" />
+  <img src="https://github.com/zubetcha/dev-book-cheat-sheet/assets/91620721/183fa763-452c-4b3f-8ca9-e58168d85b70" width="60%" alt="모노레포 폴더 구조" />
 </p>
 
 <br/>
@@ -93,9 +93,9 @@ fab1784 HEAD@{3}: commit: serverless function try-catch 추가
 
 <br/>
 
-<img src="https://github.com/zubetcha/blog-post/assets/91620721/a1054816-f5c2-49e5-a85f-d5d55075ad04" />
-<img src="https://github.com/zubetcha/blog-post/assets/91620721/0ed79efd-d923-427d-a2c7-43983c153240" />
-<img src="https://github.com/zubetcha/blog-post/assets/91620721/16d11037-782f-4b1c-a916-3948a2cc36ab" />
+<img src="https://github.com/zubetcha/blog-post/assets/91620721/a1054816-f5c2-49e5-a85f-d5d55075ad04" width="100%" alt="git graph 화면" />
+<img src="https://github.com/zubetcha/blog-post/assets/91620721/0ed79efd-d923-427d-a2c7-43983c153240" width="100%" alt="git graph 화면" />
+<img src="https://github.com/zubetcha/blog-post/assets/91620721/16d11037-782f-4b1c-a916-3948a2cc36ab" width="100%" alt="git graph 화면" />
 
 <br/>
 
@@ -170,7 +170,7 @@ $ ls -a1 | grep -v ^apps | xargs -I{} git mv {} apps/<project name>
 잘 옮겨졌다면 아래 화면과 같이 구조가 바뀐다.
 
 <p align="center">
-  <img src="https://github.com/zubetcha/zubetcha-blog/assets/91620721/c655b6de-3fdf-4f24-8d37-acf8f6eabc9b" width="50%" />
+  <img src="https://github.com/zubetcha/zubetcha-blog/assets/91620721/c655b6de-3fdf-4f24-8d37-acf8f6eabc9b" width="50%" alt="멀티레포 이동 후 구조" />
 </p>
 
 <br/>
@@ -208,7 +208,7 @@ $ git merge <project name>/<branch> --allow-unrelated-histories
 병합이 잘 됐다면 충돌 없이 모노레포에서도 변경해놨던 폴더 구조 그대로 보여진다.
 
 <p align="center">
-  <img src="https://github.com/zubetcha/zubetcha-blog/assets/91620721/3aff36be-efb4-4927-bd51-30a190573a4d" width="50%" />
+  <img src="https://github.com/zubetcha/zubetcha-blog/assets/91620721/3aff36be-efb4-4927-bd51-30a190573a4d" width="50%" alt="모노레포 병합 후 구조" />
 </p>
 
 <br/>
