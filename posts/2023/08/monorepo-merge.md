@@ -3,7 +3,7 @@ title: '[모노레포] 기존 프로젝트 안전하게 병합하기'
 category: monorepo
 date: 2023-08-03
 description: 모노레포를 구축하면서 겪은 시행착오 시리즈 1
-published: false
+published: true
 slug: how-to-merge-into-monorepo
 tags:
   - 모노레포
