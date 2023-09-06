@@ -54,7 +54,7 @@ git에서의 로그(혹은 히스토리)는 [git log](https://git-scm.com/book/k
 <br/>
 
 ```shell
-// monorepo-merge-sample 루트
+// monorepo-merge-sample/
 
 $ git reflog
 
@@ -64,7 +64,7 @@ fatal: your current branch 'main' does not have any commits yet
 분명 위에서는 에디터에서 커밋 내용을 확인할 수 있었는데, 커밋 히스토리를 확인해보면 현재 브랜치에 어떠한 커밋도 없다고 나온다. 명령어 실행 위치를 각 어플리케이션 폴더로 옮긴 후 다시 실행해보자.
 
 ```shell
-// apps/monorepo-ez-script
+// monorepo-merge-sample/apps/monorepo-ez-script
 
 $ git reflog
 
@@ -73,7 +73,7 @@ af093da HEAD@{1}: clone: from github.com:zubetcha/monorepo-ez-script.git
 ```
 
 ```shell
-// apps/zulog
+// monorepo-merge-sample/apps/zulog
 
 $ git reflog
 
@@ -89,7 +89,7 @@ fab1784 HEAD@{3}: commit: serverless function try-catch 추가
 
 <br/>
 
-위치를 옮긴 후 확인해보면 각 레포지토리마다의 커밋 히스토리들이 잘 확인된다. 즉, 물리적으로 멀티레포를 모노레포 안으로 옮기는 건 단순히 멀티레포의 위치를 변경하는 것뿐이며 모노레포에 병합이 되는 건 아닌 것이다. 이 부분은 vscode의 git graph 관련 익스텐션에서도 확인할 수 있다. 각각의 폴더를 각기 다른 git 레포지토리로 인식하고 있다.
+위치를 옮긴 후 확인해보면 각 레포지토리마다의 커밋 히스토리들이 잘 확인된다. 즉, 물리적으로 멀티레포를 모노레포 안으로 옮기는 건 단순히 멀티레포의 위치를 변경하는 것뿐이며 모노레포에 병합이 되는 건 아님을 의미한다. 이 부분은 vscode의 git 관련 익스텐션에서도 확인할 수 있다. 내가 사용하는 git graph에서는 각각의 폴더를 각기 다른 git 레포지토리로 인식하고 있다.
 
 <br/>
 
@@ -99,9 +99,11 @@ fab1784 HEAD@{3}: commit: serverless function try-catch 추가
 
 <br/>
 
-# git merge
+# git
 
-몇 차례 `병합`이라는 단어를 썼는데, git에서 관리되는 히스토리를 합치는 올바른 방법은 `git merge`를 사용하는 것이다. 하지만 멀티레포를 있는 그대로 git merge를 하면 같은 위치에 동일한 이름을 가진 수많은 파일들이 충돌하게 된다.
+## git merge
+
+몇 차례 `병합`이라는 단어를 썼는데, git에서 관리되는 히스토리를 합치는 올바른 방법은 `git merge`를 사용하는 것이다. 하지만 멀티레포를 있는 그대로 git merge를 하면 같은 위치에 동일한 이름을 가진 파일들이 충돌하게 된다.
 
 병합할 레포지토리를 clone한 후 그대로 merge 해보자.
 
@@ -129,4 +131,95 @@ CONFLICT (add/add): Merge conflict in tsconfig.json
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-충돌을 피하는 방법은 단순하게도, 
+## git mv
+
+충돌을 피하는 단순하지만 확실한 방법은 병합한 레포지토리들이 있어야 할 알맞은 위치로 merge 하는 것이다. 그러려면 merge 하기 전에 먼저 원하는 폴더 구조로 옮겨야 한다. [git mv](https://git-scm.com/docs/git-mv)를 사용하면 파일 및 폴더 등을 원하는 위치로 옮길 수 있다.
+
+# 옮기기
+
+안전하게 옮기는 과정을 순서대로 살펴보면,
+
+1. 병합할 멀티레포를 로컬에 clone
+
+```shell
+$ git clone <repo>
+```
+
+<br/>
+
+2. clone한 프로젝트 루트에서 원하는 위치 및 이름의 폴더 생성
+
+예를 들어, 병합할 레포지토리 이름이 project-a 이고, 모노레포에서 apps라는 폴더에서 관리하고 싶다면 apps/project-a를 만든다. 만약 모노레포에서는p project-b로 만들고 싶다면 apps/project-b로 폴더명을 바꿔도 된다. 패키지 매니저에 따라 package.json의 name 필드가 아닌 폴더명으로 workspace 이름을 인식하는 경우도 있기 때문에 신중하게 정하는 것이 좋다.
+
+```shell
+$ mkdir apps
+$ cd apps
+$ mkdir <proejct name>
+```
+
+<br/>
+
+3. 파일 및 폴더 이동
+
+아래의 명령어로 멀티레포에 있던 파일과 폴더들을 2번에서 생성한 폴더로 이동시킨다. 만약 생성한 폴더 구조가 apps/project 처럼 한 뎁스보다 깊다면, grep에는 가장 바깥의 부모 폴더 이름만 적는다.
+
+```shell
+$ ls -a1 | grep -v ^apps | xargs -I{} git mv {} apps/<project name>
+```
+
+잘 옮겨졌다면 아래 화면과 같이 구조가 바뀐다.
+
+<p align="center">
+  <img src="https://github.com/zubetcha/zubetcha-blog/assets/91620721/c655b6de-3fdf-4f24-8d37-acf8f6eabc9b" width="50%" />
+</p>
+
+<br/>
+
+4. commit
+
+위치 변경한 내용에 대해서 커밋한다.
+
+```shell
+$ git add .
+$ git commit -m ""
+```
+
+<br/>
+
+5. clone한 멀티레포를 모노레포의 remote 레포지토리에 추가
+
+모노레포로 돌아와서 폴더 이동 후 커밋까지 완료한 멀티레포의 로컬 경로를 이용해서 모노레포의 remote 레포지토리에 추가한다. 멀티레포의 로컬 경로는 멀티레포의 루트에서 pwd를 입력하면 알 수 있다.
+
+```shell
+$ git remote add <project name> <local path>
+```
+
+<br/>
+
+6. fetch 및 merge
+
+remote 레포지토리에 추가한 멀티레포를 fetch하고 히스토리를 트래킹하고 싶은 브랜치를 merge한다.
+
+```shell
+$ git fetch <project name>
+$ git merge <project name>/<branch> --allow-unrelated-histories
+```
+
+병합이 잘 됐다면 충돌 없이 모노레포에서도 변경해놨던 폴더 구조 그대로 보여진다.
+
+<p align="center">
+  <img src="https://github.com/zubetcha/zubetcha-blog/assets/91620721/3aff36be-efb4-4927-bd51-30a190573a4d" width="50%" />
+</p>
+
+<br/>
+
+7. commit
+
+병합한 변경사항을 커밋하고 모노레포의 원격 레포지토리에 push한다. 이 때, 태그도 push해야 멀티레포에 있던 태그들도 모노레포에 합쳐진다.
+
+```shell
+$ git add .
+$ git commit -m ""
+$ git push
+$ git push -u origin --tags
+```
